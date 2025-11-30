@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addition Quiz</title>
+    <link rel="stylesheet" href="addtest.css">
+    <link rel="icon" type="image/x-icon" href=".Images/dka-academy-high-resolution-logo.png">
+</head>
+<body>
+
+  <div class="header">
+
+        <div class="headings">
+
+       <div class="title">
+        <h1>Addition Quiz</h1>
+       </div>
+
+  </div>
+
+    <nav>
+    <ul class="sidebar">
+      <li onclick=hideSidebar()><a href="#"><img src="./Images/close_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""> </a></li>
+      <li><a href="index.html" id="Home">Home</a></li>
+      <li><a href="" id="About" >About</a></li>
+      <li><a href="login.html" id="Login">Login</a></li>
+      <!-- -->
+    </ul>
+    <ul>
+      <li><a href="#"></a></li>
+      <li class="hideOnMobile" id="Home"><a href="index.html">Home</a></li>
+      <li class="hideOnMobile" id="About"><a href="">About</a></li>
+      <li class="hideOnMobile" id="Login"><a href="login.html">Login</a></li>
+      <li class="menu-button" onclick=showSidebar()><a href="#"><img src="./Images/menu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+    </ul>
+  </nav>
+
+</div>
+
+      <div class="heading-sub">
+         <h1 id="logo"><img src="./Images/dka-academy-high-resolution-logo-removebg-preview.png" alt=""></h1>
+    </div>
+
+
+
+  <main>
+
+        <div class="quiz-container">
+        <div class="timer">Time Left: <span id="time">25</span>s</div>
+        <div class="question">Question will appear here</div>
+        <div class="options"></div>
+        <div class="result">Your score: <span id="score">0</span></div>
+        <button class="restart-btn">Restart Quiz</button>
+      </div>
+
+  </main>
+
+    <script>
+
+           function showSidebar(){
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'flex'
+    }
+    function hideSidebar(){
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'none'
+    }
+
+        const quizData = [
+            {
+                question: "A.  3+4",
+                options: ["7", "34", "11", "8"],
+                answer: "7"
+            },
+            {
+                question: "B.  7+6",
+                options: ["13", "14", "67", "76"],
+                answer: "13"
+            },
+            {
+                question: "C.  2+9",
+                options: ["12", "11", "29", "19"],
+                answer: "11"
+            },
+            {
+                question: "D.  3+6",
+                options: ["26", "19", "29", "9"],
+                answer: "9"
+            },
+            {
+                question: "E.  5+1",
+                options: ["6", "1", "4", "5"],
+                answer: "6"
+            },
+             {
+                question: "F .  8+3",
+                options: ["16", "11", "19", "83"],
+                answer: "11"
+            },
+            {
+                question: "G.  4+9",
+                options: ["16", "15", "17", "13"],
+                answer: "13"
+            },
+            {
+                question: "H.  4+13",
+                options: ["46", "43", "17", "13"],
+                answer: "17"
+            },
+            {
+                question: "I.  10+13",
+                options: ["23", "13", "23", "10"],
+                answer: "23"
+            },
+            {
+                question: "J.  16+20",
+                options: ["48", "56", "66", "36"],
+                answer: "36"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timeLeft = 25;
+        let timerInterval;
+        const timerEl = document.getElementById('time');
+        const questionEl = document.querySelector('.question');
+        const optionsEl = document.querySelector('.options');
+        const resultEl = document.querySelector('.result');
+        const scoreEl = document.getElementById('score');
+        const restartBtn = document.querySelector('.restart-btn');
+
+        // Function to load the question
+        function loadQuestion() {
+            if (currentQuestion >= quizData.length) {
+                endQuiz();
+                return;
+            }
+            clearInterval(timerInterval);
+            timeLeft = 25;
+            timerEl.textContent = timeLeft;
+            startTimer();
+            const currentQuiz = quizData[currentQuestion];
+            questionEl.textContent = currentQuiz.question;
+            optionsEl.innerHTML = ''; // Clear previous options
+            currentQuiz.options.forEach(option => {
+                const button = document.createElement('button');
+                button.classList.add('option');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        // Check the answer
+        function checkAnswer(selectedOption) {
+            if (selectedOption === quizData[currentQuestion].answer) {
+                score++;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        // Start the timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        // End the quiz and show the results
+        function endQuiz() {
+            clearInterval(timerInterval);
+            questionEl.style.display = 'none';
+            optionsEl.style.display = 'none';
+            resultEl.style.display = 'block';
+            scoreEl.textContent = score;
+            restartBtn.style.display = 'block';
+        }
+
+        // Restart the quiz
+        restartBtn.addEventListener('click', () => {
+            // Reset variables
+            currentQuestion = 0;
+            score = 0;
+            timeLeft = 25;
+            timerEl.textContent = timeLeft;
+
+            // Reset the display
+            questionEl.style.display = 'block';
+            optionsEl.style.display = 'flex'; // Ensure options are displayed correctly
+            resultEl.style.display = 'none';
+            restartBtn.style.display = 'none';
+
+            // Load the first question
+            loadQuestion();
+        });
+
+        // Initialize the quiz with the first question
+        loadQuestion();
+    </script>
+
+</body>
+</html>

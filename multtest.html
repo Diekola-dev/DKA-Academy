@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Quiz</title>
+    <link rel="stylesheet" href="multtest.css">
+    <link rel="icon" type="image/x-icon" href="Images/229665234.png">
+</head>
+<body>
+
+   <div class="header">
+
+        <div class="headings">
+
+       <div class="title">
+        <h1>Multiplication Quiz</h1>
+       </div>
+
+  </div>
+
+    <nav>
+    <ul class="sidebar">
+      <li onclick=hideSidebar()><a href="#"><img src="./Images/close_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""> </a></li>
+      <li><a href="index.html" id="Home">Home</a></li>
+      <li><a href="" id="About" >About</a></li>
+      <li><a href="login.html" id="Login">Login</a></li>
+      <!-- -->
+    </ul>
+    <ul>
+      <li><a href="#"></a></li>
+      <li class="hideOnMobile" id="Home"><a href="index.html">Home</a></li>
+      <li class="hideOnMobile" id="About"><a href="">About</a></li>
+      <li class="hideOnMobile" id="Login"><a href="login.html">Login</a></li>
+      <li class="menu-button" onclick=showSidebar()><a href="#"><img src="./Images/menu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+    </ul>
+  </nav>
+
+</div>
+
+      <div class="heading-sub">
+         <h1 id="logo"><img src="./Images/dka-academy-high-resolution-logo-removebg-preview.png" alt=""></h1>
+    </div>
+
+
+
+  <main>
+
+        <div class="quiz-container">
+        <div class="timer">Time Left: <span id="time">25</span>s</div>
+        <div class="question">Question will appear here</div>
+        <div class="options"></div>
+        <div class="result">Your score: <span id="score">0</span></div>
+        <button class="restart-btn">Restart Quiz</button>
+      </div>
+
+  </main>
+
+    <script>
+
+           function showSidebar(){
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'flex'
+    }
+    function hideSidebar(){
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'none'
+    }
+
+        const quizData = [
+            {
+                question: "A.  2 x 4",
+                options: ["8", "24", "2", "5"],
+                answer: "8"
+            },
+            {
+                question: "B.  1 x 6",
+                options: ["1", "6", "7", "8"],
+                answer: "6"
+            },
+            {
+                question: "C.  5 x 2",
+                options: ["52", "10", "7", "6"],
+                answer: "10"
+            },
+            {
+                question: "D.  7 x 3",
+                options: ["76", "37", "21", "19"],
+                answer: "21"
+            },
+            {
+                question: "E.  3 x 6",
+                options: ["16", "17", "18", "30"],
+                answer: "18"
+            },
+             {
+                question: "F .  8 x 3",
+                options: ["16", "83", "6", "24"],
+                answer: "24"
+            },
+            {
+                question: "G.  11 x 3",
+                options: ["16", "5", "33", "11"],
+                answer: "33"
+            },
+            {
+                question: "H.  4 x 10",
+                options: ["25", "14", "40" ,"20"],
+                answer: "40"
+            },
+            {
+                question: "I.  4 x 9",
+                options: ["36", "49", "45", "23"],
+                answer: "36"
+            },
+            {
+                question: "J.  1 x 16",
+                options: ["7", "4", "32", "16"],
+                answer: "16"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timeLeft = 25;
+        let timerInterval;
+        const timerEl = document.getElementById('time');
+        const questionEl = document.querySelector('.question');
+        const optionsEl = document.querySelector('.options');
+        const resultEl = document.querySelector('.result');
+        const scoreEl = document.getElementById('score');
+        const restartBtn = document.querySelector('.restart-btn');
+
+        function loadQuestion() {
+            if (currentQuestion >= quizData.length) {
+                endQuiz();
+                return;
+            }
+            clearInterval(timerInterval);
+            timeLeft = 25;
+            timerEl.textContent = timeLeft;
+            startTimer();
+            const currentQuiz = quizData[currentQuestion];
+            questionEl.textContent = currentQuiz.question;
+            optionsEl.innerHTML = ''; 
+            currentQuiz.options.forEach(option => {
+                const button = document.createElement('button');
+                button.classList.add('option');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            if (selectedOption === quizData[currentQuestion].answer) {
+                score++;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            questionEl.style.display = 'none';
+            optionsEl.style.display = 'none';
+            resultEl.style.display = 'block';
+            scoreEl.textContent = score;
+            restartBtn.style.display = 'block';
+        }
+
+        restartBtn.addEventListener('click', () => {
+            currentQuestion = 0;
+            score = 0;
+            timeLeft = 25;
+            timerEl.textContent = timeLeft;
+
+            questionEl.style.display = 'block';
+            optionsEl.style.display = 'flex'; 
+            resultEl.style.display = 'none';
+            restartBtn.style.display = 'none';
+
+            loadQuestion();
+        });
+
+        loadQuestion();
+    </script>
+
+
+</body>
+</html>
