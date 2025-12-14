@@ -131,7 +131,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: var(--accent-clr);
+    background-color: var(#252530);
 
 }
 
@@ -145,9 +145,9 @@ nav li:first-child {
     right: 0;
     height: 100vh;
     width: 225px;
-    background-color: var(--base-clr);
+    background-color: #1f2022;
     backdrop-filter: blur(12px);
-    box-shadow: -10px 0 10px var(--accent-clr);
+    box-shadow: -10px 0 10px #1C2826;
     list-style: none;
     display: none;
     flex-direction: column;
