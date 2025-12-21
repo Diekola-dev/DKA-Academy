@@ -33,7 +33,7 @@ body {
 }
 
 .header a {
-    color: #939498;
+    color: #F8F8F8;
     text-decoration: none;
     font-family: "Inter", sans-serif;
 }
@@ -158,7 +158,7 @@ nav li:first-child {
     right: 0;
     height: 100vh;
     width: 225px;
-    background-color: #1f2022;
+    background-color: #000000;
     backdrop-filter: blur(12px);
     box-shadow: -10px 0 10px #1C2826;
     list-style: none;

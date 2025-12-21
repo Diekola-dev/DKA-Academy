@@ -7,10 +7,13 @@ html {
 }
 
 body {
+    height: 100dvh;
+    height: 100vh;
     padding: 0;
     margin: 0;
-    background-color: #c8c7c7;
-
+    background-image: url(./Images/images\ \(2\).jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .header {
@@ -19,7 +22,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 25%;
-    padding: 2%;
+    padding: 1% 0%;
 }
 @media(max-width: 900px) {
     .header {
@@ -143,7 +146,7 @@ nav li:first-child {
 
 @media(max-width: 400px) {
     .sidebar {
-        width: 100%;
+        width: 60%;
     }
 }
 
@@ -151,26 +154,24 @@ main {
     padding: 4%;
 }
 
-.intro-text {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 3%;
-}
-
-.intro-text p {
-    font-size: 35px;
+#text,
+.Typewriter__wrapper{
+        font-size: 30px;
     font-weight: 700;
     font-family: "Inter", sans-serif;
+    color: #1f2022;
+    white-space: initial;
+    text-align: center;
 }
 
 @media (max-width:575px) {
-    .intro-text p {
+    #text,
+    .Typewriter__wrapper{
         font-size: 20px;
     }
 }
 
-#DKA {
+#text b {
     background-image: linear-gradient(90deg, #006494, #252530, #1f2022);
     -webkit-background-clip: text;
     background-clip: text;

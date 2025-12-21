@@ -193,7 +193,7 @@ input[type="gmail"]{
 }
 
 input::placeholder{
-    color: #;
+    color: #60666e;
 }
 
 form h1{
